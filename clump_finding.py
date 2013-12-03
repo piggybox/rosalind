@@ -10,12 +10,12 @@ pattern_frequency = {}
 
 for j in range(len(text) - k + 1):
     pattern = text[j: j + k]
-    if not pattern_frequency.has_key(pattern):
+    if not pattern in pattern_frequency:
         position = []
         for i in range(len(text) - k + 1):
             if text[i:i + k] == pattern:
                 position.append(i)
-        pattern_frequency[pattern] = position       
+        pattern_frequency[pattern] = position
 
 for k in pattern_frequency.keys():
     if len(pattern_frequency[k]) >= t:

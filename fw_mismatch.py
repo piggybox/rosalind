@@ -13,19 +13,19 @@ freq = {}
 
 patterns = map("".join, it.product("ATCG", repeat=k))
 
-for pattern in patterns:    
+for pattern in patterns:
     for i in range(len(text) - k + 1):
         mismatch = 0
-        
+
         for j in range(k):
-            if pattern[j] != text[i+j]:
+            if pattern[j] != text[i + j]:
                 mismatch += 1
                 if mismatch > d:
                     break
-        
+
         if mismatch <= d:
-            if freq.has_key(pattern):
-                freq[pattern] +=1   
+            if pattern in freq:
+                freq[pattern] += 1
             else:
                 freq[pattern] = 1
 
@@ -34,7 +34,3 @@ max_freq = max(freq.values())
 for k in freq.keys():
     if freq[k] == max_freq:
         print k,
-
-
-
-

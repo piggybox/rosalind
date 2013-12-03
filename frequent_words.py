@@ -8,7 +8,7 @@ def frequent_words(text, k):
     >>> frequent_words("ACGTTGCATGTCGCATGATGCATGAGAGCT", 4)
     ['CATG', 'GCAT']
     """
-    
+
     l = len(text)
     d = {}
 
