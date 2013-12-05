@@ -1,6 +1,6 @@
  # Implement Motif Enumeration
  # Input: Integers k and d, followed by a collection of strings Dna.
- # Output: All (k, d)-motifs in Dna.
+ # Output: All (k, d)-motifs in DNA.
 
 import sys
 import itertools
@@ -23,7 +23,7 @@ def mutations(kmer, d):
     return list(set(result))  # get rid of duplicates
 
 
-#  if a kmer appears in a Dna with at most d mutations
+#  check if a kmer appears in a DNA with at most d mutations
 def check_appearance(dna, kmer, d):
     k = len(kmer)
     for i in range(len(dna) - k + 1):
