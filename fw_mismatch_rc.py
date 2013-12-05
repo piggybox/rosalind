@@ -1,18 +1,36 @@
 # Frequent Words with Mismatches and Reverse Complements
 
 import sys
-import itertools as it
+import itertools
 
 lines = open(sys.argv[1].strip(), 'r').readlines()
 text = str(lines[0]).strip()
-k = int(lines[1].strip())
-d = int(lines[2].strip())
-
-
+k, d = map(int, lines[1].split())
 freq = {}
-
-patterns = map("".join, it.product("ATCG", repeat=k))
+# patterns = map("".join, itertools.product("ATCG", repeat=k))
 dna_mapping = {'A': 'T', 'T': 'A', 'G': 'C', 'C': 'G'}
+
+
+def mutations(kmer, d):
+    result = []
+    for indices in itertools.combinations(range(len(kmer)), d):
+        # all possible replacements including the original
+        # in this way it will cover cases for d - 1, d - 2 ... 0
+        for replacements in itertools.product('ATCG', repeat=d):
+            mutation = list(kmer)
+            for index, replacement in zip(indices, replacements):
+                mutation[index] = replacement
+            result.append("".join(mutation))
+    return list(set(result))  # get rid of duplicates
+
+
+# All possible kmer patterns in the DNA with at most d mutations
+patterns = []
+for index in range(len(text) - k + 1):
+    kmer = text[index:index+k]
+    patterns += mutations(kmer, d)
+patterns = list(set(patterns))
+
 
 for pattern in patterns:
     rc_pattern = ""
@@ -52,3 +70,4 @@ max_freq = max(freq.values())
 for k in freq.keys():
     if freq[k] == max_freq:
         print k,
+
